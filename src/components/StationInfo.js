@@ -46,11 +46,11 @@ export default class StationInfo extends React.Component {
       delete s.num_bikes_available_types;
       return s;
     })
-
-    const stationInfo = allStations.map((s1) => ({
-      ...s1,
-      ...stationStatus.find((s2) => s2.id === s1.id ),
-    }));
+    const stationInfo = allStations.map((item,i)=>{
+      if(item.id === stationStatus[i].id){
+        return Object.assign({},item,stationStatus[i])
+      }
+   })
     return stationInfo;
   }
 
@@ -68,6 +68,10 @@ export default class StationInfo extends React.Component {
 
   render() {
     const { columnNames, stationData } = this.state;
+    console.log('columnNames')
+    console.log(columnNames)
+    console.log('stationData')
+    console.log(stationData)
     return <Station stationData={stationData} columnNames={columnNames}/>;
   }
 }
